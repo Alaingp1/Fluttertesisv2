@@ -87,6 +87,7 @@ class _RecuperarContrasenaState extends State<RecuperarContrasena> {
                     children: [
                       TextFormField(
                         controller: contrasenacontroller,
+                        obscureText: true,
                         decoration: const InputDecoration(
                           labelText: "ingrese su nueva contraseña",
                         ),
@@ -95,6 +96,7 @@ class _RecuperarContrasenaState extends State<RecuperarContrasena> {
                       Divider(),
                       TextFormField(
                         controller: contrasenanuevacontroller,
+                        obscureText: true,
                         decoration: const InputDecoration(
                           labelText: "confirme su nueva contraseña",
                         ),

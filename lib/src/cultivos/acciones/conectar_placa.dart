@@ -3,6 +3,7 @@ import 'package:flutter_tesisv2/src/cultivos/acciones/detalle_cultivos.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/models/sensor_model.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/providers/sensor_provider.dart';
+import 'package:flutter_tesisv2/src/empresa/bottom_bar.dart';
 import 'package:flutter_tesisv2/src/usuarios/sidebar.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,24 +21,60 @@ class _PlacaState extends State<Placa> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(0, 131, 163, 1),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       drawer: NavDrawer(),
       body: ListView(
         children: [
-          TextFormField(
-            controller: macPlaca,
-            decoration:
-                InputDecoration(labelText: 'Ingrese la MAC de su placa'),
-            textInputAction: TextInputAction.next,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                vincularPlaca();
-                Navigator.pushNamed(context, "cultivos");
-              },
-              child: const Text("aceptar"))
+          Container(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 150,
+                ),
+                Text(
+                  //
+                  "Vamos a vincular su producto ",
+                  style: TextStyle(fontSize: 18),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Container(
+                  width: 300,
+                  child: TextFormField(
+                    controller: macPlaca,
+                    decoration: InputDecoration(
+                        labelText: 'Ingrese la MAC de su placa'),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                FlatButton(
+                    color: Color.fromRGBO(0, 131, 163, 1),
+                    onPressed: () {
+                      vincularPlaca();
+                      Navigator.pushNamed(context, "cultivos");
+                    },
+                    child: const Text(
+                      "aceptar",
+                      style: TextStyle(color: Colors.white),
+                    ))
+              ],
+            ),
+          )
         ],
       ),
+      bottomNavigationBar: ClienteBottomBar('cultivos'),
     );
   }
 

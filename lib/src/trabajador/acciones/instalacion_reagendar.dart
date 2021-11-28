@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:flutter_tesisv2/src/empresa/bottom_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:intl/intl.dart';
@@ -67,7 +68,10 @@ class _ReagendarInstalacionState extends State<ReagendarInstalacion> {
                       ),
                       FlatButton(
                         color: Color.fromRGBO(0, 131, 163, 1),
-                        child: Text("Listo"),
+                        child: Text(
+                          "Listo",
+                          style: TextStyle(color: Colors.white),
+                        ),
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             reagendarinstalacion();
@@ -84,6 +88,7 @@ class _ReagendarInstalacionState extends State<ReagendarInstalacion> {
           ),
         ),
       ),
+      bottomNavigationBar: TrabajadorBottomBar('instalaciones'),
     );
   }
 
@@ -114,7 +119,7 @@ class _ReagendarInstalacionState extends State<ReagendarInstalacion> {
     return showDatePicker(
         context: context,
         initialDate: DateTime.now(),
-        firstDate: DateTime(2020),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2022),
         builder: (context, child) {
           return Theme(data: ThemeData.dark(), child: child);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/models/sensor_model.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/providers/sensor_provider.dart';
+import 'package:flutter_tesisv2/src/empresa/bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Sensores extends StatefulWidget {
@@ -25,34 +26,38 @@ class _SensoresState extends State<Sensores> {
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(0, 131, 163, 1),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
         child: Column(
           children: [
             listaSensores(),
-            ElevatedButton(
+            FlatButton(
+              color: Color.fromRGBO(0, 131, 163, 1),
               onPressed: _submit,
-              child: Text("asignar parametros"),
+              child: Text(
+                "asignar parametros",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         ),
       ),
+      bottomNavigationBar: ClienteBottomBar('cultivos'),
     );
   }
 
   Widget listaSensores() {
     return Column(
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Activar notificaciones'),
-            Switch(
-              onChanged: (value) => setState(() {}),
-              activeColor: Colors.green,
-              value: sensor == null ? false : true,
-            ),
-          ],
+        SizedBox(
+          height: 20,
+        ),
+        Text("Ingrese la temperatura minima de su cultivo:"),
+        SizedBox(
+          height: 20,
         ),
         Container(
           width: MediaQuery.of(context).size.width,
@@ -60,12 +65,19 @@ class _SensoresState extends State<Sensores> {
           child: TextField(
             controller: minima,
             decoration: InputDecoration(
-              labelText: 'Sensores minima',
+              labelText: 'Temperatura minima',
               suffixText: 'c°',
             ),
             enabled: true,
             keyboardType: TextInputType.number,
           ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text("Ingrese la temperatura maxima de su cultivo:"),
+        SizedBox(
+          height: 20,
         ),
         Container(
           width: MediaQuery.of(context).size.width,
@@ -80,18 +92,28 @@ class _SensoresState extends State<Sensores> {
             keyboardType: TextInputType.number,
           ),
         ),
+        SizedBox(
+          height: 20,
+        ),
+        Text("Ingrese la humedad minima se su cultivo:"),
+        SizedBox(
+          height: 20,
+        ),
         Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.only(right: 60),
           child: TextField(
             controller: humedad,
             decoration: InputDecoration(
-              labelText: 'Humedad de la planta',
+              labelText: 'Humedad del cultivo',
               suffixText: '%',
             ),
             keyboardType: TextInputType.number,
           ),
-        )
+        ),
+        SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
@@ -102,7 +124,7 @@ class _SensoresState extends State<Sensores> {
     sensor.temp_minima = int.parse(minima.text);
     sensor.temp_maxima = int.parse(maxima.text);
     sensor.humedad_minima = int.parse(humedad.text);
-    
+
     sensorProvider.actualizarDatos(placa, sensor);
   }
 }

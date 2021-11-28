@@ -88,9 +88,9 @@ class _CultivoState extends State<Cultivo> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                                margin: EdgeInsets.all(10),
-                                width: 150.0,
-                                height: 150.0,
+                                margin: EdgeInsets.all(9),
+                                width: 120.0,
+                                height: 120.0,
                                 child: FadeInImage(
                                   image: NetworkImage(
                                       dataCult[index]['Cultivo_imagen']),

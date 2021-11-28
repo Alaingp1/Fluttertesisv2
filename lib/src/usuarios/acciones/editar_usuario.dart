@@ -149,6 +149,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                       onEditingComplete: () => node.nextFocus()),
                   TextFormField(
                       controller: contrasenaController,
+                      obscureText: true,
                       maxLength: 8,
                       decoration: InputDecoration(
                           labelText: "ingrese una nueva contraseña"),
@@ -173,6 +174,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                       }),
                   TextFormField(
                       controller: confirmarController,
+                      obscureText: true,
                       maxLength: 8,
                       decoration:
                           InputDecoration(labelText: "repita su contraseña"),

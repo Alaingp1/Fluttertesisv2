@@ -14,6 +14,7 @@ class TrabajadorBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(0, 131, 163, 1),
       currentIndex: _barItemIndexMap[barItem],
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -88,18 +89,28 @@ class ClienteBottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Color.fromRGBO(0, 131, 163, 1),
       currentIndex: _barItemIndexMap[barItem],
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'notificaciones',
-        ),
+            icon: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            label: 'notificaciones',
+            backgroundColor: Colors.white),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Icon(
+            Icons.person,
+            color: Colors.white,
+          ),
           label: 'home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
+          icon: Icon(
+            Icons.message,
+            color: Colors.white,
+          ),
           label: 'cultivo',
         ),
       ],
