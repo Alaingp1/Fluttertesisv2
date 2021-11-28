@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Sensores extends StatefulWidget {
   static const String ROUTE = "/Sensores";
+
   Sensores({Key key}) : super(key: key);
 
   @override
@@ -19,8 +20,6 @@ class _SensoresState extends State<Sensores> {
   TextEditingController maxima = TextEditingController();
   TextEditingController humedad = TextEditingController();
   TextEditingController macAddress = TextEditingController();
-
-  bool flag = false;
 
   @override
   Widget build(BuildContext context) {
@@ -98,17 +97,12 @@ class _SensoresState extends State<Sensores> {
   }
 
   void _submit() {
-    sensor.sensoresMaxima = int.parse(minima.text);
-    sensor.sensoresMinima = int.parse(maxima.text);
-    sensor.humedad = int.parse(humedad.text);
-    sensorProvider.obtenerPlaca();
-  }
+    var placa = ModalRoute.of(context).settings.arguments as String;
 
-  void _setMacAdress() {
-    print("macAddress " + macAddress.text);
-    sensor.name = macAddress.text;
-    setState(() {
-      flag = true;
-    });
+    sensor.temp_minima = int.parse(minima.text);
+    sensor.temp_maxima = int.parse(maxima.text);
+    sensor.humedad_minima = int.parse(humedad.text);
+    
+    sensorProvider.actualizarDatos(placa, sensor);
   }
 }

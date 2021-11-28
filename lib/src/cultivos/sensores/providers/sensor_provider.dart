@@ -7,13 +7,11 @@ import 'package:http/http.dart' as http;
 
 class SensorProvider {
   final FirebaseDatabase db = FirebaseDatabase.instance;
-
   final databaseRef = FirebaseDatabase.instance.reference();
-  final Future<FirebaseApp> _future = Firebase.initializeApp();
 
-  Future obtenerPlaca() async {
-    void asignarDatos(SensorModel sensor) {
-      databaseRef.child('/${sensor.name}').update(sensor.toJson());
-    }
+  void actualizarDatos(String mac, SensorModel model) async {
+    print('estoy weando con la placa $mac');
+    databaseRef.child('/$mac').update(model.toJson());
   }
+
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tesisv2/src/cultivos/acciones/detalle_cultivos.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:flutter_tesisv2/src/cultivos/sensores/models/sensor_model.dart';
+import 'package:flutter_tesisv2/src/cultivos/sensores/providers/sensor_provider.dart';
 import 'package:flutter_tesisv2/src/usuarios/sidebar.dart';
 import 'package:http/http.dart' as http;
 
@@ -30,7 +32,7 @@ class _PlacaState extends State<Placa> {
           ),
           ElevatedButton(
               onPressed: () {
-                generarOrden();
+                vincularPlaca();
                 Navigator.pushNamed(context, "cultivos");
               },
               child: const Text("aceptar"))
@@ -39,7 +41,7 @@ class _PlacaState extends State<Placa> {
     );
   }
 
-  void generarOrden() async {
+  void vincularPlaca() async {
     var cultivo = ModalRoute.of(context).settings.arguments as String;
     /*  print('vinculando placa ${macPlaca.text} al cultivo $cultivo'); */
     var cultivo1 = widget.algo;
@@ -53,5 +55,7 @@ class _PlacaState extends State<Placa> {
         "Sensores_nombre": macPlaca.text,
       },
     );
+
+    SensorProvider().actualizarDatos(macPlaca.text, SensorModel());
   }
 }
