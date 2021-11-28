@@ -216,9 +216,11 @@ class _OrdenarProductoState extends State<OrdenarProducto> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
+                                  if (cantidad == 0) {
+                                    cantidad = 1;
+                                  }
                                   validarDatos();
 
-                                  //  obtenerUsuarios();
                                   generarOrden();
 
                                   showToast();

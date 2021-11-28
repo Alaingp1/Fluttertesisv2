@@ -77,6 +77,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(240, 248, 255, 1),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -98,13 +99,14 @@ class _LoginState extends State<Login> {
                       child: Center(
                         child: Text(
                           'Inicia sesión',
-                          style: Theme.of(context).textTheme.headline5,
+                          style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ),
                     ),
                     Divider(),
                     TextFormField(
                         controller: _correo,
+                        style: TextStyle(color: Colors.black),
                         validator: (value) {
                           if (value.isEmpty) {
                             return "Debe Colocar Dato";
@@ -112,8 +114,11 @@ class _LoginState extends State<Login> {
                           return null;
                         },
                         keyboardType: TextInputType.emailAddress,
-                        decoration:
-                            InputDecoration(labelText: 'Correo electronico'),
+                        decoration: InputDecoration(
+                          hintText: "ingrese su correo electronico",
+                          hintStyle: TextStyle(color: Colors.black),
+                          labelText: 'Correo electronico',
+                        ),
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () => node.nextFocus()),
                     TextFormField(
@@ -151,7 +156,7 @@ class _LoginState extends State<Login> {
                       },
                       child: Text(
                         ' registrate aquí',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                     TextButton(
@@ -163,7 +168,7 @@ class _LoginState extends State<Login> {
                       },
                       child: Text(
                         "Has olvidado tu contraseña, pincha aqui",
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: TextStyle(color: Colors.black),
                       ),
                     ),
                   ],
