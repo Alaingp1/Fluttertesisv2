@@ -26,13 +26,15 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
   bool verificarsi = false;
   bool verificado = true;
   int datasensor = 0;
+  String placa = "";
   @override
   void initState() {
     obtenerSensores().then((value) {
       if (value.length >= 1) {
         datasensor = int.parse(value[0]['Sensores_id']);
+        placa = value[0]['Sensores_nombre'];
         setState(() {});
-        print('sensor: $datasensor');
+        print('sensor: ${value[0]['Sensores_nombre']}');
       }
     });
 
@@ -126,8 +128,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
                             ),
                             onTap: () => Navigator.pushNamed(
                                 context, "Sensores",
-                                arguments: widget.listaCult[widget.indexCult]
-                                    ['Cultivo_id']),
+                                arguments: placa),
                           ),
                           ListTile(
                             leading: Icon(FontAwesomeIcons.tint),

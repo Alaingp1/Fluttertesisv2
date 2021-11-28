@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final sensorModel = sensorModelFromJson(jsonString);
-
 import 'dart:convert';
 
 SensorModel sensorModelFromJson(String str) =>
@@ -9,37 +5,26 @@ SensorModel sensorModelFromJson(String str) =>
 
 String sensorModelToJson(SensorModel data) => json.encode(data.toJson());
 
-class SensorModel {
-  SensorModel({
-    this.id,
-    this.name,
-    this.sensoresMaxima,
-    this.sensoresMinima,
-    this.humedad,
-    this.estado,
+class SensorModel {  
+  int humedad_minima;
+  int temp_maxima;
+  int temp_minima;
+
+  SensorModel({    
+    this.humedad_minima = 0,
+    this.temp_maxima = 0,
+    this.temp_minima = 0,
   });
 
-  int id;
-  String name;
-  int sensoresMaxima;
-  int sensoresMinima;
-  int humedad;
-  bool estado;
-
   factory SensorModel.fromJson(Map<String, dynamic> json) => SensorModel(
-        id: json["id"],
-        name: json["name"],
-        sensoresMaxima: json["Sensores_maxima"],
-        sensoresMinima: json["Sensores_minima"],
-        humedad: json["Humedad"],
-        estado: json["estado"],
+        humedad_minima: json["humedad_minima"],
+        temp_maxima: json["temp_maxima"],
+        temp_minima: json["temp_minima"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "Sensores_maxima": sensoresMaxima,
-        "Sensores_minima": sensoresMinima,
-        "Humedad": humedad,
-        "estado": estado,
+  Map<String, dynamic> toJson() => { 
+        "humedad_minima": humedad_minima,
+        "temp_maxima": temp_maxima,
+        "temp_minima": temp_minima,
       };
 }

@@ -41,73 +41,76 @@ class _CultivoState extends State<Cultivo> {
           },
         ),
       ),
-      body: ListView.builder(
-        itemCount: dataCult.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) => DetalleCultivo(
-                    indexCult: index,
-                    listaCult: dataCult,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: ListView.builder(
+          itemCount: dataCult.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => DetalleCultivo(
+                      indexCult: index,
+                      listaCult: dataCult,
+                    ),
                   ),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              "Nombre del cultivo : " +
+                                  dataCult[index]['Cultivo_apodo'],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                              textAlign: TextAlign.start,
+                            ),
+                            Text(
+                              "tipo del cultivo : " +
+                                  dataCult[index]['Tipo_nombre'],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                                margin: EdgeInsets.all(10),
+                                width: 150.0,
+                                height: 150.0,
+                                child: FadeInImage(
+                                  image: NetworkImage(
+                                      dataCult[index]['Cultivo_imagen']),
+                                  placeholder:
+                                      AssetImage('assets/jar-loading.gif'),
+                                )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              );
-            },
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Column(
-                        children: [
-                          Text(
-                            "Nombre del cultivo : " +
-                                dataCult[index]['Cultivo_apodo'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            "tipo del cultivo : " +
-                                dataCult[index]['Tipo_nombre'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                              margin: EdgeInsets.all(10),
-                              width: 150.0,
-                              height: 150.0,
-                              child: FadeInImage(
-                                image: NetworkImage(
-                                    dataCult[index]['Cultivo_imagen']),
-                                placeholder:
-                                    AssetImage('assets/jar-loading.gif'),
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color.fromRGBO(240, 248, 255, 1),
+                ),
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color.fromRGBO(240, 248, 255, 1),
-              ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromRGBO(0, 131, 163, 1),
