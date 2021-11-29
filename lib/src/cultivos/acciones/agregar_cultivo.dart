@@ -128,7 +128,6 @@ class _AgregarCultivoState extends State<AgregarCultivo> {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Cultivo()));
                     } else {
-                      print(dropdownValue);
                       Fluttertoast.showToast(
                           msg: "por favor ingrese un tipo de cultivo");
                     }
@@ -228,7 +227,7 @@ class _AgregarCultivoState extends State<AgregarCultivo> {
   Future registrarcultivo() async {
     var id = await FlutterSession().get('id');
     var url =
-        'http://152.173.207.169/pruebastesis/Crearcultivo.php?Usuario_id=$id&Tipo_id=$dropdownValue';
+        'http://152.173.200.226/pruebastesis/Crearcultivo.php?Usuario_id=$id&Tipo_id=$dropdownValue';
     await http.post(Uri.parse(url), body: {
       'Cultivo_apodo': apodoController.text,
       'Cultivo_imagen': urlIma.toString(),

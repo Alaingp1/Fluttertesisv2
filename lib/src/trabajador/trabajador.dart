@@ -19,7 +19,7 @@ class _TrabajadorState extends State<Trabajador> {
   Future<Map> obtenerUsuarios() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.207.169/pruebastesis/obtenerHorario.php?Usuarioid=$id";
+        "http://152.173.200.226/pruebastesis/obtenerHorario.php?Usuarioid=$id";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -110,7 +110,7 @@ class _TrabajadorState extends State<Trabajador> {
                             : FadeInImage(
                                 fit: BoxFit.fitWidth,
                                 image: NetworkImage(
-                                    "http://152.173.207.169/lefufuapp/public/uploads/publicaciones/$imagen"),
+                                    "http://152.173.200.226/lefufuapp/public/uploads/publicaciones/$imagen"),
                                 placeholder:
                                     AssetImage('assets/jar-loading.gif'),
                               )
@@ -141,7 +141,7 @@ class _TrabajadorState extends State<Trabajador> {
   }
 
   Future<List> verPublicaciones() async {
-    var url = "http://152.173.207.169/pruebastesis/obtenerPublicaciones.php";
+    var url = "http://152.173.200.226/pruebastesis/obtenerPublicaciones.php";
     final response = await http.get(Uri.parse(url));
     final dataPub = jsonDecode(response.body);
     return dataPub;

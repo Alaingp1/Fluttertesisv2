@@ -40,13 +40,13 @@ class _ProductosState extends State<Productos> {
   }
 
   Future<List> verProductos() async {
-    var url = "http://152.173.207.169/pruebastesis/obtenerProducto.php";
+    var url = "http://152.173.200.226/pruebastesis/obtenerProducto.php";
     final response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
 
   Future verCategoria() async {
-    var url = "http://152.173.207.169/pruebastesis/verCategorias.php";
+    var url = "http://152.173.200.226/pruebastesis/verCategorias.php";
     final response = await http.get(Uri.parse(url));
     final dataJson = jsonDecode(response.body);
     return dataJson;
@@ -54,7 +54,7 @@ class _ProductosState extends State<Productos> {
 
   Future<List> filtroCategoria() async {
     var url =
-        "http://152.173.207.169/pruebastesis/filtroCategorias.php?Categoria_id=$dropdownValue";
+        "http://152.173.200.226/pruebastesis/filtroCategorias.php?Categoria_id=$dropdownValue";
     final response = await http.get(Uri.parse(url));
     final dataFiltro = jsonDecode(response.body);
     return dataFiltro;
@@ -63,7 +63,7 @@ class _ProductosState extends State<Productos> {
   Future filtroNombre() async {
     buscador = filtronombre.text;
     var url =
-        "http://152.173.207.169/pruebastesis/filtroNombre.php?Producto_nombre=$buscador";
+        "http://152.173.200.226/pruebastesis/filtroNombre.php?Producto_nombre=$buscador";
     final response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
@@ -182,7 +182,7 @@ class _ProductosState extends State<Productos> {
                                 ? FadeInImage(
                                     fit: BoxFit.fill,
                                     image: NetworkImage(
-                                        "http://152.173.207.169/lefufuapp/public/uploads/kits/$imagenprod"),
+                                        "http://152.173.200.226/lefufuapp/public/uploads/kits/$imagenprod"),
                                     placeholder:
                                         AssetImage('assets/jar-loading.gif'),
                                   )

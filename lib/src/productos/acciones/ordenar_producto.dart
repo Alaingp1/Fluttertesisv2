@@ -245,7 +245,7 @@ class _OrdenarProductoState extends State<OrdenarProducto> {
     var id = await FlutterSession().get('id');
     var producto = ModalRoute.of(context).settings.arguments as Map;
     print(producto);
-    var url = "http://152.173.207.169/pruebastesis/generarOrden2.php";
+    var url = "http://152.173.200.226/pruebastesis/generarOrden2.php";
     // final response = await http.get(Uri.parse(url));
     http.post(
       Uri.parse(url),
@@ -282,7 +282,7 @@ class _OrdenarProductoState extends State<OrdenarProducto> {
   void validarDatos() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.207.169/pruebastesis/validarDatos.php?Usuario_id=$id";
+        "http://152.173.200.226/pruebastesis/validarDatos.php?Usuario_id=$id";
     http.post(Uri.parse(url), body: {
       'Usuario_direccion': controlDireccion.text,
       'Usuario_telefono': controlTelefono.text,
@@ -292,7 +292,7 @@ class _OrdenarProductoState extends State<OrdenarProducto> {
   Future<Map<String, dynamic>> obtenerUsuarios() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.207.169/pruebastesis/obtenerDatos.php?Usuarioid=$id";
+        "http://152.173.200.226/pruebastesis/obtenerDatos.php?Usuarioid=$id";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body)[0];
   }
@@ -302,7 +302,7 @@ class _OrdenarProductoState extends State<OrdenarProducto> {
     var producto = ModalRoute.of(context).settings.arguments as Map;
     var idProd = producto['Producto_id'];
     var url =
-        "http://152.173.207.169/pruebastesis/obtenerCantidad.php?Producto_id=$idProd";
+        "http://152.173.200.226/pruebastesis/obtenerCantidad.php?Producto_id=$idProd";
     final response = await http.get(Uri.parse(url));
 
     return json.decode(response.body);

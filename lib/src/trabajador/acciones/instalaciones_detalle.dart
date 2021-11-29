@@ -22,7 +22,7 @@ class _InstalacionesDetalleState extends State<InstalacionesDetalle> {
     var id = await FlutterSession().get('id');
     var instalacion = ModalRoute.of(context).settings.arguments as String;
     var url =
-        "http://152.173.207.169/pruebastesis/detalleInstalaciones.php?Usuario_id=$id&Instalacion_id=$instalacion";
+        "http://152.173.200.226/pruebastesis/detalleInstalaciones.php?Usuario_id=$id&Instalacion_id=$instalacion";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -99,7 +99,7 @@ class _InstalacionesDetalleState extends State<InstalacionesDetalle> {
   validarInstalacion() async {
     var instalacion = ModalRoute.of(context).settings.arguments as String;
     var url =
-        "http://152.173.207.169/pruebastesis/validarInstalacion.php?Instalacion_id=$instalacion";
+        "http://152.173.200.226/pruebastesis/validarInstalacion.php?Instalacion_id=$instalacion";
     final response = await http.get(Uri.parse(url));
 
     // http.post(Uri.parse(url), body: {});
@@ -108,7 +108,7 @@ class _InstalacionesDetalleState extends State<InstalacionesDetalle> {
   eliminarInstalacion() async {
     var instalacion = ModalRoute.of(context).settings.arguments as String;
     var url =
-        "http://152.173.207.169/pruebastesis/eliminarInstalacion.php?Instalacion_id=$instalacion";
+        "http://152.173.200.226/pruebastesis/eliminarInstalacion.php?Instalacion_id=$instalacion";
     final response = await http.get(Uri.parse(url));
   }
 }
