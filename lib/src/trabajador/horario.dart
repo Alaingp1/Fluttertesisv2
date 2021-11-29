@@ -50,6 +50,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Lunes",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -73,6 +74,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Martes",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -96,6 +98,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Miercoles",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -119,6 +122,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Jueves",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -142,6 +146,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Viernes",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -165,6 +170,7 @@ class _HorarioState extends State<Horario> {
               Container(
                 child: Text(
                   "Dia Sabado",
+                  style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -205,9 +211,12 @@ class ElementoLista extends StatelessWidget {
     return Container(
       height: 100,
       width: 220,
-      padding: EdgeInsets.all(2.0),
+      padding: EdgeInsets.all(2),
       child: GestureDetector(
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           color: Color.fromRGBO(0, 131, 163, 1),
           child: Column(
             children: [

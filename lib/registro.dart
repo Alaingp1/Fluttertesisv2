@@ -28,6 +28,8 @@ class _RegistroState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
     final node = FocusScope.of(context);
+    Pattern passvalida = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$";
+    RegExp regExp = RegExp(passvalida);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -120,9 +122,6 @@ class _RegistroState extends State<Registro> {
                           } else if (value != passwordController.text) {
                             return "Deben ser iguales";
                           } else {
-                            Pattern passvalida =
-                                r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$";
-                            RegExp regExp = RegExp(passvalida);
                             if (regExp.hasMatch(value)) {
                               return null;
                             } else {
@@ -172,13 +171,16 @@ class _RegistroState extends State<Registro> {
                             if (passwordController.text ==
                                     passwordcController.text &&
                                 passwordController.text.isNotEmpty) {
-                              registrarusuario();
-                              Fluttertoast.showToast(
-                                  msg: "usuario registrado exitosamente");
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Login()));
+                              if (regExp.hasMatch(passwordController.text) &&
+                                  regExp.hasMatch(passwordcController.text)) {
+                                registrarusuario();
+                                Fluttertoast.showToast(
+                                    msg: "usuario registrado exitosamente");
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Login()));
+                              }
                             }
                           }
                         },

@@ -63,18 +63,23 @@ class _NavDrawerState extends State<NavDrawer> {
                       child: ClipOval(
                         child: dataUsuario.length >= 1
                             ? dataUsuario[0]['Usuario_foto'] != null
-                                ? regExp.hasMatch(imagen)
-                                    ? FadeInImage(
-                                        image: NetworkImage(
-                                            dataUsuario[0]['Usuario_foto']),
-                                        placeholder: AssetImage(
-                                            'assets/jar-loading.gif'),
-                                      )
-                                    : FadeInImage(
-                                        image: NetworkImage(
-                                            "http://152.173.207.169/lefufuapp/public/uploads/trabajadores/$imagen"),
-                                        placeholder: AssetImage(
-                                            'assets/jar-loading.gif'),
+                                ? dataUsuario[0]['Usuario_foto'] != 'null'
+                                    ? regExp.hasMatch(imagen)
+                                        ? FadeInImage(
+                                            image: NetworkImage(
+                                                dataUsuario[0]['Usuario_foto']),
+                                            placeholder: AssetImage(
+                                                'assets/jar-loading.gif'),
+                                          )
+                                        : FadeInImage(
+                                            image: NetworkImage(
+                                                "http://152.173.207.169/lefufuapp/public/uploads/trabajadores/$imagen"),
+                                            placeholder: AssetImage(
+                                                'assets/jar-loading.gif'),
+                                          )
+                                    : Image.asset(
+                                        "assets/no-image.png",
+                                        fit: BoxFit.fill,
                                       )
                                 : Image.asset(
                                     "assets/no-image.png",

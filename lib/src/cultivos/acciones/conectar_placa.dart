@@ -5,6 +5,7 @@ import 'package:flutter_tesisv2/src/cultivos/sensores/models/sensor_model.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/providers/sensor_provider.dart';
 import 'package:flutter_tesisv2/src/empresa/bottom_bar.dart';
 import 'package:flutter_tesisv2/src/usuarios/sidebar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 class Placa extends StatefulWidget {
@@ -20,6 +21,9 @@ class _PlacaState extends State<Placa> {
   TextEditingController macPlaca = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Pattern macvalida = r"^([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})$";
+    RegExp regExp = RegExp(macvalida);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 131, 163, 1),
@@ -50,6 +54,7 @@ class _PlacaState extends State<Placa> {
                 Container(
                   width: 300,
                   child: TextFormField(
+                    maxLength: 17,
                     controller: macPlaca,
                     decoration: InputDecoration(
                         labelText: 'Ingrese la MAC de su placa'),
@@ -62,8 +67,18 @@ class _PlacaState extends State<Placa> {
                 FlatButton(
                     color: Color.fromRGBO(0, 131, 163, 1),
                     onPressed: () {
-                      vincularPlaca();
-                      Navigator.pushNamed(context, "cultivos");
+                      if (macPlaca.text != "") {
+                        if (regExp.hasMatch(macPlaca.text)) {
+                          vincularPlaca();
+                          Navigator.pushNamed(context, "cultivos");
+                        } else {
+                          Fluttertoast.showToast(
+                              msg: "Por favor ingrese una mac valida ");
+                        }
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "por favor ingrese alguna mac");
+                      }
                     },
                     child: const Text(
                       "aceptar",

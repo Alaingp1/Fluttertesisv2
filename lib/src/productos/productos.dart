@@ -19,10 +19,10 @@ class Productos extends StatefulWidget {
 
 class _ProductosState extends State<Productos> {
   List data = [];
-  var f;
+  var buscador;
   List dataProd = [];
   String dropdownValue;
-  TextEditingController filtron = TextEditingController();
+  TextEditingController filtronombre = TextEditingController();
   @override
   void initState() {
     verCategoria().then((value) {
@@ -61,9 +61,9 @@ class _ProductosState extends State<Productos> {
   }
 
   Future filtroNombre() async {
-    f = filtron.text;
+    buscador = filtronombre.text;
     var url =
-        "http://152.173.207.169/pruebastesis/filtroNombre.php?Producto_nombre=$f";
+        "http://152.173.207.169/pruebastesis/filtroNombre.php?Producto_nombre=$buscador";
     final response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
@@ -76,16 +76,17 @@ class _ProductosState extends State<Productos> {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 131, 163, 1),
         title: TextField(
-          controller: filtron,
+          controller: filtronombre,
           decoration: InputDecoration(hintText: "buscar producto"),
           onEditingComplete: () {},
         ),
         actions: [
           IconButton(
               onPressed: () {
-                if (f != "") {
+                if (buscador != "") {
                   filtroNombre().then((value) {
                     dataProd = value;
+                    filtronombre.text = "";
                     setState(() {});
                   });
                 } else {}

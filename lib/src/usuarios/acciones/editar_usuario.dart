@@ -227,28 +227,37 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                                     "por favor verifique si su contraseña es igual o cumple con los requisitos");
                           }
                         } else if (urlIma != null) {
-                          if (contrasenaController.text ==
-                              confirmarController.text) {
-                            if (regExpp.hasMatch(contrasenaController.text) &&
-                                regExpp.hasMatch(confirmarController.text)) {
-                              await editarUsuario();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Cuenta()));
+                          if (contrasenaController.text.isEmpty &&
+                              confirmarController.text.isEmpty) {
+                            if (contrasenaController.text ==
+                                confirmarController.text) {
+                              if (regExpp.hasMatch(contrasenaController.text) &&
+                                  regExpp.hasMatch(confirmarController.text)) {
+                                await editarUsuario();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Cuenta()));
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg:
+                                        "por favor verifique si su contraseña cumple con los requisitos");
+                              }
                             } else {
                               Fluttertoast.showToast(
                                   msg:
-                                      "por favor verifique si su contraseña es igual o cumple con los requisitos");
+                                      "por favor verifique si su contraseña es igual");
                             }
-                          } else {
-                            Fluttertoast.showToast(
-                                msg:
-                                    "por favor verifique si su contraseña es igual o cumple con los requisitos");
                           }
+                          await editarUsuario();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Cuenta()));
+                        } else {
                           Fluttertoast.showToast(
                               msg:
-                                  "por favor seleccione una imagen u espere un momento para que se suba");
+                                  "por favor verifique si su contraseña es igual o cumple con los requisitos");
                         }
                       },
                       child: Text(

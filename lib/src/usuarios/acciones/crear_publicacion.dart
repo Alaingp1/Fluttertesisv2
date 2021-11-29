@@ -44,7 +44,7 @@ class _PublicacionState extends State<Publicacion> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pushNamed("home");
+            Navigator.pop(context);
           },
         ),
         actions: [
@@ -72,7 +72,7 @@ class _PublicacionState extends State<Publicacion> {
                 height: 30,
               ),
               Text(
-                "Crea tu publicacion",
+                "Publica tu Cultivo",
                 style: TextStyle(fontSize: 20),
               ),
               const SizedBox(
@@ -82,35 +82,33 @@ class _PublicacionState extends State<Publicacion> {
               const SizedBox(
                 height: 30,
               ),
-              Text(
-                "Nombre : ",
-                style: TextStyle(fontSize: 15),
-              ),
-              const SizedBox(
-                height: 2,
-              ),
-              TextFormField(
-                controller: nombrepController,
-                decoration: InputDecoration(
-                  labelText: dataCult != null
-                      ? dataCult['Cultivo_apodo']
-                      : "ingrese un nombre",
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
+              Row(
+                children: [
+                  Text(
+                    "Nombre del Cultivo : ",
+                    style: TextStyle(fontSize: 18),
                   ),
-                ),
+                  const SizedBox(
+                    width: 2,
+                  ),
+                  Text(
+                    dataCult != null
+                        ? dataCult['Cultivo_apodo']
+                        : "ingrese un nombre",
+                    style: TextStyle(fontSize: 17),
+                    textAlign: TextAlign.center,
+                  )
+                ],
               ),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
               Text(
                 "Descripcion : ",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(fontSize: 18),
               ),
               const SizedBox(
-                height: 2,
+                height: 15,
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -130,11 +128,10 @@ class _PublicacionState extends State<Publicacion> {
                 child: FlatButton(
                   color: Color.fromRGBO(0, 131, 163, 1),
                   onPressed: () {
-                    if (nombrepController.text == "" &&
-                        descripcionController.text == "") {
+                    if (descripcionController.text == "") {
                       Fluttertoast.showToast(
                           msg:
-                              "por favor ingrese un nombre y una descripcion para la publicacion");
+                              "por favor ingrese  una descripcion para la publicacion");
                     } else {
                       crearPublicacion();
                       Navigator.of(context).pushNamed("home");

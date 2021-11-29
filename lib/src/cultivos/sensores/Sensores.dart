@@ -16,7 +16,7 @@ class Sensores extends StatefulWidget {
 class _SensoresState extends State<Sensores> {
   SensorModel sensor = SensorModel();
   final sensorProvider = SensorProvider();
-
+  final _formKey = GlobalKey<FormState>();
   TextEditingController minima = TextEditingController();
   TextEditingController maxima = TextEditingController();
   TextEditingController humedad = TextEditingController();
@@ -29,21 +29,25 @@ class _SensoresState extends State<Sensores> {
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(0, 131, 163, 1),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-        child: Column(
-          children: [
-            listaSensores(),
-            FlatButton(
-              color: Color.fromRGBO(0, 131, 163, 1),
-              onPressed: _submit,
-              child: Text(
-                "asignar parametros",
-                style: TextStyle(color: Colors.white),
-              ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
+            child: Column(
+              children: [
+                listaSensores(),
+                FlatButton(
+                  color: Color.fromRGBO(0, 131, 163, 1),
+                  onPressed: _submit,
+                  child: Text(
+                    "asignar parametros",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: ClienteBottomBar('cultivos'),
     );
@@ -64,6 +68,7 @@ class _SensoresState extends State<Sensores> {
           padding: EdgeInsets.only(right: 60),
           child: TextField(
             controller: minima,
+            maxLength: 2,
             decoration: InputDecoration(
               labelText: 'Temperatura minima',
               suffixText: 'c°',
@@ -84,6 +89,7 @@ class _SensoresState extends State<Sensores> {
           padding: EdgeInsets.only(right: 60),
           child: TextField(
             controller: maxima,
+            maxLength: 2,
             decoration: InputDecoration(
               labelText: 'Sensores maxima',
               suffixText: 'c°',
@@ -104,6 +110,7 @@ class _SensoresState extends State<Sensores> {
           padding: EdgeInsets.only(right: 60),
           child: TextField(
             controller: humedad,
+            maxLength: 2,
             decoration: InputDecoration(
               labelText: 'Humedad del cultivo',
               suffixText: '%',
