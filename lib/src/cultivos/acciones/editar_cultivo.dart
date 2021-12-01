@@ -265,7 +265,7 @@ class _EditarCultivoState extends State<EditarCultivo> {
     var id = await FlutterSession().get('id');
     var cultivo = ModalRoute.of(context).settings.arguments as String;
     var url =
-        "http://152.173.200.226/pruebastesis/obtenerCultivoeditar.php?Usuario_id=$id&Cultivo_id=$cultivo";
+        "http://152.173.202.192/pruebastesis/obtenerCultivoeditar.php?Usuario_id=$id&Cultivo_id=$cultivo";
     final response = await http.get(Uri.parse(url));
     final dataProd = jsonDecode(response.body);
     return dataProd;
@@ -274,7 +274,7 @@ class _EditarCultivoState extends State<EditarCultivo> {
   void editarCultivo() async {
     var id = await FlutterSession().get('id');
     var cultivo = ModalRoute.of(context).settings.arguments as String;
-    var url = "http://152.173.200.226/pruebastesis/editarCultivo.php";
+    var url = "http://152.173.202.192/pruebastesis/editarCultivo.php";
     http.post(Uri.parse(url), body: {
       'Cultivo_id': cultivo.toString(),
       'Tipo_id': dropdownValue != null ? dropdownValue : dataCult[0]['Tipo_id'],
@@ -288,7 +288,7 @@ class _EditarCultivoState extends State<EditarCultivo> {
 
   void eliminarCultivo() async {
     var cultivo = ModalRoute.of(context).settings.arguments as String;
-    var url = "http://152.173.200.226/pruebastesis/EliminarCultivo.php";
+    var url = "http://152.173.202.192/pruebastesis/EliminarCultivo.php";
     await http.post(Uri.parse(url), body: {"Cultivo_id": cultivo});
   }
 }

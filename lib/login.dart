@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.black),
                       ),
                     ),
-                    TextButton(
+                    /*  TextButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -170,7 +170,7 @@ class _LoginState extends State<Login> {
                         "Has olvidado tu contraseña, pincha aqui",
                         style: TextStyle(color: Colors.black),
                       ),
-                    ),
+                    ), */
                   ],
                 ),
               ],

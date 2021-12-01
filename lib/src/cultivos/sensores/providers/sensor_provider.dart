@@ -13,4 +13,6 @@ class SensorProvider {
     print('estoy weando con la placa $mac');
     databaseRef.child('/$mac').update(model.toJson());
   }
+
+  void listarDatos(String mac) async {}
 }

@@ -227,7 +227,7 @@ class _AgregarCultivoState extends State<AgregarCultivo> {
   Future registrarcultivo() async {
     var id = await FlutterSession().get('id');
     var url =
-        'http://152.173.200.226/pruebastesis/Crearcultivo.php?Usuario_id=$id&Tipo_id=$dropdownValue';
+        'http://152.173.202.192/pruebastesis/Crearcultivo.php?Usuario_id=$id&Tipo_id=$dropdownValue';
     await http.post(Uri.parse(url), body: {
       'Cultivo_apodo': apodoController.text,
       'Cultivo_imagen': urlIma.toString(),

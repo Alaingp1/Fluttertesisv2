@@ -95,10 +95,10 @@ class _PlacaState extends State<Placa> {
 
   void vincularPlaca() async {
     var cultivo = ModalRoute.of(context).settings.arguments as String;
-    /*  print('vinculando placa ${macPlaca.text} al cultivo $cultivo'); */
+    print('vinculando placa ${macPlaca.text} al cultivo $cultivo');
     var cultivo1 = widget.algo;
-    print('vinculando placa ${macPlaca.text} al cultivo $cultivo1');
-    var url = "http://152.173.200.226/pruebastesis/agregarMac.php";
+    // print('vinculando placa ${macPlaca.text} al cultivo $cultivo1');
+    var url = "http://152.173.202.192/pruebastesis/agregarMac.php";
     // final response = await http.get(Uri.parse(url));
     await http.post(
       Uri.parse(url),

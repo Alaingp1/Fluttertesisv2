@@ -24,7 +24,7 @@ class _OrdenDetalleState extends State<OrdenDetalle> {
     var id = await FlutterSession().get('id');
     var orden = ModalRoute.of(context).settings.arguments as String;
     var url =
-        "http://152.173.200.226/pruebastesis/detalleOrdenes.php?Usuario_id=$id&Orden_id=$orden";
+        "http://152.173.202.192/pruebastesis/detalleOrdenes.php?Usuario_id=$id&Orden_id=$orden";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }

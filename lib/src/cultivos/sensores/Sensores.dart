@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tesisv2/src/cultivos/acciones/conectar_placa.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/models/sensor_model.dart';
 import 'package:flutter_tesisv2/src/cultivos/sensores/providers/sensor_provider.dart';
 import 'package:flutter_tesisv2/src/empresa/bottom_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class Sensores extends StatefulWidget {
   static const String ROUTE = "/Sensores";
@@ -16,14 +21,42 @@ class Sensores extends StatefulWidget {
 class _SensoresState extends State<Sensores> {
   SensorModel sensor = SensorModel();
   final sensorProvider = SensorProvider();
+
+  String temperaturaMa = "";
+  String temperaturaMi = "";
+  String humedadsql = "";
+
   final _formKey = GlobalKey<FormState>();
   TextEditingController minima = TextEditingController();
   TextEditingController maxima = TextEditingController();
   TextEditingController humedad = TextEditingController();
-  TextEditingController macAddress = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    obtenerdatosSensores().then((value) {
+      if (value.length >= 1) {
+        if (value != null) {
+          temperaturaMa = value[0]['Sensores_maxima'].toString();
+          temperaturaMi = value[0]['Sensores_minima'].toString();
+          humedadsql = value[0]['Sensores_humedad'].toString();
+          setState(() {});
+        }
+
+        setState(() {});
+      }
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("maxima");
+    print(temperaturaMa);
+    print("maxima");
+    print(temperaturaMi);
+    print("humedad");
+    print(humedadsql);
+
     final node = FocusScope.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +71,11 @@ class _SensoresState extends State<Sensores> {
                 listaSensores(),
                 FlatButton(
                   color: Color.fromRGBO(0, 131, 163, 1),
-                  onPressed: _submit,
+                  onPressed: () {
+                    _submit();
+                    editarSensoressql();
+                    // Navigator.pop(context);
+                  },
                   child: Text(
                     "asignar parametros",
                     style: TextStyle(color: Colors.white),
@@ -51,6 +88,25 @@ class _SensoresState extends State<Sensores> {
       ),
       bottomNavigationBar: ClienteBottomBar('cultivos'),
     );
+  }
+
+  Future<List> obtenerdatosSensores() async {
+    String placasql = ModalRoute.of(context).settings.arguments as String;
+    var url =
+        'http://152.173.202.192/pruebastesis/obtenerDatosSensor.php?Sensores_nombre="$placasql"';
+    final response = await http.get(Uri.parse(url));
+    return jsonDecode(response.body);
+  }
+
+  void editarSensoressql() async {
+    var placasql = ModalRoute.of(context).settings.arguments as String;
+    var url =
+        'http://152.173.202.192/pruebastesis/editarDatosSensoresql.php?Sensores_nombre=$placasql';
+    await http.post(Uri.parse(url), body: {
+      'Sensores_minima': minima.text,
+      'Sensores_maxima': maxima.text,
+      'Sensores_humedad': humedad.text,
+    });
   }
 
   Widget listaSensores() {
@@ -70,7 +126,7 @@ class _SensoresState extends State<Sensores> {
             controller: minima,
             maxLength: 2,
             decoration: InputDecoration(
-              labelText: 'Temperatura minima',
+              labelText: 'Temperatura minima:  ' + temperaturaMi + 'c°',
               suffixText: 'c°',
             ),
             enabled: true,
@@ -91,7 +147,7 @@ class _SensoresState extends State<Sensores> {
             controller: maxima,
             maxLength: 2,
             decoration: InputDecoration(
-              labelText: 'Sensores maxima',
+              labelText: 'Temperatura maxima:  ' + temperaturaMa + "c°",
               suffixText: 'c°',
             ),
             enabled: true,
@@ -101,18 +157,18 @@ class _SensoresState extends State<Sensores> {
         SizedBox(
           height: 20,
         ),
-        Text("Ingrese la humedad minima se su cultivo:"),
+        Text("Ingrese la humedad de su cultivo:"),
         SizedBox(
           height: 20,
         ),
         Container(
           width: MediaQuery.of(context).size.width,
           padding: EdgeInsets.only(right: 60),
-          child: TextField(
+          child: TextFormField(
             controller: humedad,
-            maxLength: 2,
+            maxLength: 3,
             decoration: InputDecoration(
-              labelText: 'Humedad del cultivo',
+              labelText: "humedad:  " + humedadsql + "%",
               suffixText: '%',
             ),
             keyboardType: TextInputType.number,
@@ -128,9 +184,26 @@ class _SensoresState extends State<Sensores> {
   void _submit() {
     var placa = ModalRoute.of(context).settings.arguments as String;
 
-    sensor.temp_minima = int.parse(minima.text);
-    sensor.temp_maxima = int.parse(maxima.text);
-    sensor.humedad_minima = int.parse(humedad.text);
+    if (minima.text.isEmpty) {
+      minima.text = temperaturaMi;
+      sensor.temp_minima = int.parse(temperaturaMi);
+    } else {
+      sensor.temp_minima = int.parse(minima.text);
+    }
+
+    if (maxima.text.isEmpty) {
+      maxima.text = temperaturaMa;
+      sensor.temp_maxima = int.parse(temperaturaMa);
+    } else {
+      sensor.temp_maxima = int.parse(maxima.text);
+    }
+
+    if (humedad.text.isEmpty) {
+      humedad.text = humedadsql;
+      sensor.humedad_minima = int.parse(humedadsql);
+    } else {
+      sensor.humedad_minima = int.parse(humedad.text);
+    }
 
     sensorProvider.actualizarDatos(placa, sensor);
   }

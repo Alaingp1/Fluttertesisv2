@@ -18,7 +18,7 @@ class DatosEmpresa extends StatefulWidget {
 class _DatosEmpresaState extends State<DatosEmpresa> {
   Future<List> obtenerDatosEmpresa() async {
     var id = await FlutterSession().get('id');
-    var url = "http://152.173.200.226/pruebastesis/obtenerDatosEmpresa.php";
+    var url = "http://152.173.202.192/pruebastesis/obtenerDatosEmpresa.php";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }

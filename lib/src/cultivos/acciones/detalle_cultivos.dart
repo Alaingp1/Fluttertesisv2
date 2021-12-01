@@ -119,13 +119,8 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
                           Divider(),
                           ListTile(
                             leading: Icon(FontAwesomeIcons.thermometerQuarter),
-                            title: Text('Sensor de Sensores'),
+                            title: Text('Sensor de Temperatura'),
                             subtitle: Text('28ºC'),
-                            trailing: Switch(
-                              onChanged: (value) => print('toggle sensor'),
-                              activeColor: Colors.green,
-                              value: true,
-                            ),
                             onTap: () => Navigator.pushNamed(
                                 context, "Sensores",
                                 arguments: placa),
@@ -134,11 +129,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
                             leading: Icon(FontAwesomeIcons.tint),
                             title: Text('Sensor de humedad'),
                             subtitle: Text('45%'),
-                            trailing: Switch(
-                              onChanged: (value) => print('toggle sensor'),
-                              activeColor: Colors.green,
-                              value: true,
-                            ),
+                            trailing: Text("temeratura"),
                           ),
                         ],
                       ),
@@ -174,7 +165,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
   eliminarCultivo() async {
     String cultivoid = widget.listaCult[widget.indexCult]['Cultivo_id'];
     var url =
-        'http://152.173.200.226/pruebastesis/EliminarCultivo.php?Cultivo_id=$cultivoid';
+        'http://152.173.202.192/pruebastesis/EliminarCultivo.php?Cultivo_id=$cultivoid';
     var response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
@@ -183,7 +174,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
     var id = await FlutterSession().get('id');
     String cultivoid = widget.listaCult[widget.indexCult]['Cultivo_id'];
     var url =
-        'http://152.173.200.226/pruebastesis/obtenerSensores.php?Usuario_id=$id&Cultivo_id=$cultivoid';
+        'http://152.173.202.192/pruebastesis/obtenerSensores.php?Usuario_id=$id&Cultivo_id=$cultivoid';
     var response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
