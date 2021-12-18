@@ -18,6 +18,7 @@ class Publicacion extends StatefulWidget {
 
 class _PublicacionState extends State<Publicacion> {
   Map dataCult;
+  bool subiendofoto = false;
   @override
   void initState() {
     verCultivos().then((value) {
@@ -128,13 +129,19 @@ class _PublicacionState extends State<Publicacion> {
                 child: FlatButton(
                   color: Color.fromRGBO(0, 131, 163, 1),
                   onPressed: () {
-                    if (descripcionController.text == "") {
+                    if (subiendofoto != true) {
+                      if (descripcionController.text == "") {
+                        Fluttertoast.showToast(
+                            msg:
+                                "por favor ingrese  una descripcion para la publicacion");
+                      } else {
+                        crearPublicacion();
+                        Navigator.of(context).pushNamed("home");
+                      }
+                    } else {
                       Fluttertoast.showToast(
                           msg:
-                              "por favor ingrese  una descripcion para la publicacion");
-                    } else {
-                      crearPublicacion();
-                      Navigator.of(context).pushNamed("home");
+                              "por favor espere a que se suba la imagen a la base de datos");
                     }
                   },
                   child: Text(
@@ -177,22 +184,23 @@ class _PublicacionState extends State<Publicacion> {
     final pickedFoto =
         await ImagePicker().getImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedFoto != null) {
-        fotoi = File(pickedFoto.path);
-        subirImagenFB(context);
-      } else {}
-    });
+    if (pickedFoto != null) {
+      fotoi = File(pickedFoto.path);
+      subiendofoto = true;
+      setState(() {});
+      await subirImagenFB(context);
+    } else {}
   }
 
   Future _tomarFoto() async {
     final pickedFoto = await ImagePicker().getImage(source: ImageSource.camera);
-    setState(() {
-      if (pickedFoto != null) {
-        fotoi = File(pickedFoto.path);
-        subirImagenFB(context);
-      } else {}
-    });
+
+    if (pickedFoto != null) {
+      fotoi = File(pickedFoto.path);
+      subiendofoto = true;
+      setState(() {});
+      await subirImagenFB(context);
+    } else {}
   }
 
   Future subirImagenFB(BuildContext context) async {
@@ -218,6 +226,8 @@ class _PublicacionState extends State<Publicacion> {
           .child('subir')
           .child('/$fotoN');
       urlIma = await imaRef.getDownloadURL();
+      subiendofoto = false;
+      setState(() {});
 
       return {print("Upload file path ${value.ref.fullPath}")};
     }).onError((error, stackTrace) =>
@@ -228,7 +238,7 @@ class _PublicacionState extends State<Publicacion> {
     var id = await FlutterSession().get('id');
     var cultivo = ModalRoute.of(context).settings.arguments;
     var url =
-        "http://152.173.202.192/pruebastesis/obtenerCultivoeditar.php?Usuario_id=$id&Cultivo_id=$cultivo";
+        "http://152.173.140.177/pruebastesis/obtenerCultivoeditar.php?Usuario_id=$id&Cultivo_id=$cultivo";
     final response = await http.get(Uri.parse(url));
     return jsonDecode(response.body)[0];
   }
@@ -236,7 +246,7 @@ class _PublicacionState extends State<Publicacion> {
   crearPublicacion() async {
     var id = await FlutterSession().get('id');
     var url =
-        'http://152.173.202.192/pruebastesis/crearPublicacion.php?Usuario_id=$id';
+        'http://152.173.140.177/pruebastesis/crearPublicacion.php?Usuario_id=$id';
     http.post(Uri.parse(url), body: {
       'Publicacion_nombre': nombrepController.text == null
           ? nombrepController.text.toString()

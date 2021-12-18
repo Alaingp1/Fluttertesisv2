@@ -64,7 +64,6 @@ class _RegistroState extends State<Registro> {
                         onEditingComplete: () => node.nextFocus()),
                     TextFormField(
                         controller: emailController,
-                        maxLength: 25,
                         keyboardType: TextInputType.emailAddress,
                         decoration:
                             InputDecoration(labelText: 'Correo electronico'),
@@ -218,7 +217,7 @@ class _RegistroState extends State<Registro> {
   }
 
   void registrarusuario() {
-    var url = 'http://152.173.202.192/pruebastesis/crearUsuario.php';
+    var url = 'http://152.173.140.177/pruebastesis/crearUsuario.php';
     http.post(Uri.parse(url), body: {
       'Usuario_nombre': nombreuController.text,
       'Usuario_correo': emailController.text,

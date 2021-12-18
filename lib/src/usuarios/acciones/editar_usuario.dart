@@ -30,6 +30,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
   File fotoi;
   String fotoN;
   String urlIma;
+  bool subiendofoto = false;
   TextEditingController nombreuController = TextEditingController();
   TextEditingController correoController = TextEditingController();
   TextEditingController contrasenaController = TextEditingController();
@@ -82,9 +83,12 @@ class _EditarUsuarioState extends State<EditarUsuario> {
           var imagen = dataUsuario[index]['Usuario_foto'];
           Pattern urlp =
               r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?";
-          RegExp regExp = RegExp(urlp);
+          RegExp expimagen = RegExp(urlp);
           Pattern passvalida = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$";
-          RegExp regExpp = RegExp(passvalida);
+          RegExp expcontrasena = RegExp(passvalida);
+          Pattern emailvalido =
+              r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
+          RegExp expcorreo = RegExp(emailvalido);
           return Container(
             height: MediaQuery.of(context).size.height,
             child: Padding(
@@ -99,7 +103,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                         ? fotoi == null
                             ? imagen != null
                                 ? imagen != "null"
-                                    ? regExp.hasMatch(imagen)
+                                    ? expimagen.hasMatch(imagen)
                                         ? FadeInImage(
                                             fit: BoxFit.fitWidth,
                                             image: NetworkImage(imagen),
@@ -109,7 +113,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                                         : FadeInImage(
                                             fit: BoxFit.fitWidth,
                                             image: NetworkImage(
-                                                "http://152.173.202.192/lefufuapp/public/uploads/trabajadores/$imagen"),
+                                                "http://152.173.140.177/lefufuapp/public/uploads/trabajadores/$imagen"),
                                             placeholder: AssetImage(
                                                 'assets/jar-loading.gif'),
                                           )
@@ -148,30 +152,14 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                       textInputAction: TextInputAction.next,
                       onEditingComplete: () => node.nextFocus()),
                   TextFormField(
-                      controller: contrasenaController,
-                      obscureText: true,
-                      maxLength: 8,
-                      decoration: InputDecoration(
-                          labelText: "ingrese una nueva contraseña"),
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: (_) => node.nextFocus(),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "Debe Colocar Dato";
-                        } else if (value != contrasenaController.text) {
-                          return "Deben ser iguales";
-                        } else {
-                          Pattern passvalida =
-                              r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,8}$";
-                          RegExp regExp = RegExp(passvalida);
-                          if (regExp.hasMatch(value)) {
-                          } else {
-                            Fluttertoast.showToast(
-                                msg:
-                                    "verifique su contraseña debe tener minimo 5 caracteres y un maximo de 8 donde al menos uno debe ser un numero ");
-                          }
-                        }
-                      }),
+                    controller: contrasenaController,
+                    obscureText: true,
+                    maxLength: 8,
+                    decoration: InputDecoration(
+                        labelText: "ingrese una nueva contraseña"),
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (_) => node.nextFocus(),
+                  ),
                   TextFormField(
                       controller: confirmarController,
                       obscureText: true,
@@ -204,20 +192,35 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                   FlatButton(
                       color: Color.fromRGBO(0, 131, 163, 1),
                       onPressed: () async {
-                        if (urlIma == null) {
+                        if (subiendofoto != true) {
                           if (contrasenaController.text ==
                               confirmarController.text) {
-                            if (regExpp.hasMatch(contrasenaController.text) &&
-                                    regExpp
+                            if (expcontrasena
+                                        .hasMatch(contrasenaController.text) &&
+                                    expcontrasena
                                         .hasMatch(confirmarController.text) ||
                                 contrasenaController.text.isEmpty) {
-                              Fluttertoast.showToast(
-                                  msg: "usuario editado con exito");
-                              await editarUsuario();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Cuenta()));
+                              if (correoController.text.isEmpty) {
+                                Fluttertoast.showToast(
+                                    msg: "usuario editado con exito");
+                                await editarUsuario();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Cuenta()));
+                              } else if (expcorreo
+                                  .hasMatch(correoController.text)) {
+                                Fluttertoast.showToast(
+                                    msg: "usuario editado con exito");
+                                await editarUsuario();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Cuenta()));
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: "por favor ingrese un correo valido");
+                              }
                             } else {
                               Fluttertoast.showToast(
                                   msg:
@@ -228,40 +231,10 @@ class _EditarUsuarioState extends State<EditarUsuario> {
                                 msg:
                                     "por favor verifique si su contraseña es igual o cumple con los requisitos");
                           }
-                        } else if (urlIma != null) {
-                          if (contrasenaController.text.isEmpty &&
-                              confirmarController.text.isEmpty) {
-                            if (contrasenaController.text ==
-                                confirmarController.text) {
-                              if (regExpp.hasMatch(contrasenaController.text) &&
-                                  regExpp.hasMatch(confirmarController.text)) {
-                                await editarUsuario();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Cuenta()));
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg:
-                                        "por favor verifique si su contraseña cumple con los requisitos");
-                              }
-                            } else {
-                              Fluttertoast.showToast(
-                                  msg:
-                                      "por favor verifique si su contraseña es igual");
-                            }
-                          }
-                          Fluttertoast.showToast(
-                              msg: "usuario editado con exito");
-                          await editarUsuario();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Cuenta()));
                         } else {
                           Fluttertoast.showToast(
                               msg:
-                                  "por favor verifique si su contraseña es igual o cumple con los requisitos");
+                                  "por favor espere a que su imagen se suba a la base de datos");
                         }
                       },
                       child: Text(
@@ -281,7 +254,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
     var id = await FlutterSession().get('id');
 
     var url =
-        "http://152.173.202.192/pruebastesis/obtenerUsuarioeditar.php?Usuario_id=$id";
+        "http://152.173.140.177/pruebastesis/obtenerUsuarioeditar.php?Usuario_id=$id";
     final response = await http.get(Uri.parse(url));
     final datausu = jsonDecode(response.body);
     return datausu;
@@ -291,22 +264,23 @@ class _EditarUsuarioState extends State<EditarUsuario> {
     final pickedFoto =
         await ImagePicker().getImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedFoto != null) {
-        fotoi = File(pickedFoto.path);
-        subirImagenFB(context);
-      } else {}
-    });
+    if (pickedFoto != null) {
+      fotoi = File(pickedFoto.path);
+      subiendofoto = true;
+      setState(() {});
+      await subirImagenFB(context);
+    } else {}
   }
 
   Future _tomarFoto() async {
     final pickedFoto = await ImagePicker().getImage(source: ImageSource.camera);
-    setState(() {
-      if (pickedFoto != null) {
-        fotoi = File(pickedFoto.path);
-        subirImagenFB(context);
-      } else {}
-    });
+
+    if (pickedFoto != null) {
+      fotoi = File(pickedFoto.path);
+      subiendofoto = true;
+      setState(() {});
+      await subirImagenFB(context);
+    } else {}
   }
 
   Future subirImagenFB(BuildContext context) async {
@@ -332,7 +306,8 @@ class _EditarUsuarioState extends State<EditarUsuario> {
           .child('subir')
           .child('/$fotoN');
       urlIma = await imaRef.getDownloadURL();
-
+      subiendofoto = false;
+      setState(() {});
       return {print("Upload file path ${value.ref.fullPath}")};
     }).onError((error, stackTrace) =>
         {print("Upload file path error ${error.toString()} ")});
@@ -342,7 +317,7 @@ class _EditarUsuarioState extends State<EditarUsuario> {
     var id = await FlutterSession().get('id');
 
     var url =
-        "http://152.173.202.192/pruebastesis/editarUsuario.php?Usuario_id=$id";
+        "http://152.173.140.177/pruebastesis/editarUsuario.php?Usuario_id=$id";
     await http.post(Uri.parse(url), body: {
       'Usuario_nombre': nombreuController.text,
       'Usuario_correo': correoController.text,

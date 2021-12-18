@@ -37,7 +37,7 @@ class _DetallePublicacionState extends State<DetallePublicacion> {
             icon: Icon(Icons.delete),
             onPressed: () async {
               var url =
-                  "http://152.173.202.192/pruebastesis/eliminarPublicacion.php";
+                  "http://152.173.140.177/pruebastesis/eliminarPublicacion.php";
               await http.post(Uri.parse(url), body: {
                 "Publicacion_id": widget.listaPub[widget.indexPub]
                     ['Publicacion_id']
@@ -70,7 +70,7 @@ class _DetallePublicacionState extends State<DetallePublicacion> {
                         : FadeInImage(
                             fit: BoxFit.fitWidth,
                             image: NetworkImage(
-                                "http://152.173.202.192/lefufuapp/public/uploads/publicaciones/$imagen"),
+                                "http://152.173.140.177/lefufuapp/public/uploads/publicaciones/$imagen"),
                             placeholder: AssetImage('assets/jar-loading.gif'),
                           )
                     : Image.asset(

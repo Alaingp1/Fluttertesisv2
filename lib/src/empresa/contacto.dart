@@ -19,7 +19,7 @@ class Contacto extends StatefulWidget {
 class _ContactoState extends State<Contacto> {
   Future<List> obtenerContacto() async {
     var id = await FlutterSession().get('id');
-    var url = "http://152.173.202.192/pruebastesis/obtenerContacto.php";
+    var url = "http://152.173.140.177/pruebastesis/obtenerContacto.php";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }

@@ -60,7 +60,7 @@ class _DetallesProductoState extends State<DetallesProducto> {
               child: widget.lista[widget.index]['Producto_foto'] != null
                   ? FadeInImage(
                       image: NetworkImage(
-                          "http://152.173.202.192/lefufuapp/public/uploads/kits/$imagenprod"),
+                          "http://152.173.140.177/lefufuapp/public/uploads/kits/$imagenprod"),
                       placeholder: AssetImage('assets/jar-loading.gif'),
                       height: 500,
                     )

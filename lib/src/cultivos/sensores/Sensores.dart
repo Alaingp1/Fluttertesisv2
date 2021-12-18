@@ -93,7 +93,7 @@ class _SensoresState extends State<Sensores> {
   Future<List> obtenerdatosSensores() async {
     String placasql = ModalRoute.of(context).settings.arguments as String;
     var url =
-        'http://152.173.202.192/pruebastesis/obtenerDatosSensor.php?Sensores_nombre="$placasql"';
+        'http://152.173.140.177/pruebastesis/obtenerDatosSensor.php?Sensores_nombre="$placasql"';
     final response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
@@ -101,7 +101,7 @@ class _SensoresState extends State<Sensores> {
   void editarSensoressql() async {
     var placasql = ModalRoute.of(context).settings.arguments as String;
     var url =
-        'http://152.173.202.192/pruebastesis/editarDatosSensoresql.php?Sensores_nombre=$placasql';
+        'http://152.173.140.177/pruebastesis/editarDatosSensoresql.php?Sensores_nombre=$placasql';
     await http.post(Uri.parse(url), body: {
       'Sensores_minima': minima.text,
       'Sensores_maxima': maxima.text,

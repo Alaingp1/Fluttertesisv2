@@ -24,7 +24,7 @@ class _DatosTrabajadorState extends State<DatosTrabajador> {
   Future<List> obtenerUsuarios() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.202.192/pruebastesis/obtenerDatos.php?Usuarioid=$id";
+        "http://152.173.140.177/pruebastesis/obtenerDatos.php?Usuarioid=$id";
     final response = await http.get(Uri.parse(url));
     return json.decode(response.body);
   }
@@ -38,6 +38,7 @@ class _DatosTrabajadorState extends State<DatosTrabajador> {
         actions: <Widget>[
           FlatButton(
             onPressed: () {
+              FlutterSession().set('id', 0);
               Navigator.of(context).pushReplacementNamed("login");
             },
             child: FaIcon(
@@ -104,7 +105,7 @@ class ElementoLista extends StatelessWidget {
                   height: 250,
                   child: lista[posicion]['Usuario_foto'] != null
                       ? Image.network(
-                          "http://152.173.202.192/lefufuapp/public/uploads/trabajadores/$fotousu",
+                          "http://152.173.140.177/lefufuapp/public/uploads/trabajadores/$fotousu",
                           fit: BoxFit.fill,
                         )
                       : Image.asset(

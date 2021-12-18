@@ -127,7 +127,7 @@ class _CultivoState extends State<Cultivo> {
   Future<List> verCultivos() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.202.192/pruebastesis/obtenerCultivo.php?Usuario_id=$id";
+        "http://152.173.140.177/pruebastesis/obtenerCultivo.php?Usuario_id=$id";
     final response = await http.get(Uri.parse(url));
     final dataProd = jsonDecode(response.body);
     return dataProd;

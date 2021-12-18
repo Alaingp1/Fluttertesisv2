@@ -98,7 +98,7 @@ class _PlacaState extends State<Placa> {
     print('vinculando placa ${macPlaca.text} al cultivo $cultivo');
     var cultivo1 = widget.algo;
     // print('vinculando placa ${macPlaca.text} al cultivo $cultivo1');
-    var url = "http://152.173.202.192/pruebastesis/agregarMac.php";
+    var url = "http://152.173.140.177/pruebastesis/agregarMac.php";
     // final response = await http.get(Uri.parse(url));
     await http.post(
       Uri.parse(url),

@@ -77,15 +77,23 @@ class _ListaPublicacionesState extends State<ListaPublicaciones> {
                   children: [
                     Divider(),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          "Nombre publicacion : " +
+                          "     Titulo : " +
                               dataPub[index]['Publicacion_nombre'],
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.black),
                         ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Text(
-                          "Autor : " + dataPub[index]['Usuario_nombre'],
+                          "     Autor : " + dataPub[index]['Usuario_nombre'],
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
@@ -106,7 +114,7 @@ class _ListaPublicacionesState extends State<ListaPublicaciones> {
                               : FadeInImage(
                                   fit: BoxFit.fitWidth,
                                   image: NetworkImage(
-                                      "http://152.173.202.192/lefufuapp/public/uploads/publicaciones/$imagen"),
+                                      "http://152.173.140.177/lefufuapp/public/uploads/publicaciones/$imagen"),
                                   placeholder:
                                       AssetImage('assets/jar-loading.gif'),
                                 )
@@ -137,7 +145,7 @@ class _ListaPublicacionesState extends State<ListaPublicaciones> {
   Future<List> verPublicaciones() async {
     var id = await FlutterSession().get('id');
     var url =
-        "http://152.173.202.192/pruebastesis/obtenerPublicacionusuario.php?Usuario_id=$id";
+        "http://152.173.140.177/pruebastesis/obtenerPublicacionusuario.php?Usuario_id=$id";
     final response = await http.get(Uri.parse(url));
     final dataPub = jsonDecode(response.body);
     return dataPub;

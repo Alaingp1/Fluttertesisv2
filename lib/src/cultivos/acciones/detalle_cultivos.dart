@@ -165,7 +165,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
   eliminarCultivo() async {
     String cultivoid = widget.listaCult[widget.indexCult]['Cultivo_id'];
     var url =
-        'http://152.173.202.192/pruebastesis/EliminarCultivo.php?Cultivo_id=$cultivoid';
+        'http://152.173.140.177/pruebastesis/EliminarCultivo.php?Cultivo_id=$cultivoid';
     var response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
@@ -174,7 +174,7 @@ class _DetalleCultivoState extends State<DetalleCultivo> {
     var id = await FlutterSession().get('id');
     String cultivoid = widget.listaCult[widget.indexCult]['Cultivo_id'];
     var url =
-        'http://152.173.202.192/pruebastesis/obtenerSensores.php?Usuario_id=$id&Cultivo_id=$cultivoid';
+        'http://152.173.140.177/pruebastesis/obtenerSensores.php?Usuario_id=$id&Cultivo_id=$cultivoid';
     var response = await http.get(Uri.parse(url));
     return jsonDecode(response.body);
   }
